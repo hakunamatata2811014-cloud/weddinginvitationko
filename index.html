@@ -873,13 +873,10 @@
       let seen = false;
       try{ seen = localStorage.getItem("wedding_intro_seen") === "1"; } catch(e){}
 
-      if(seen){
-        finishIntro();
-      }else{
-        // dok je overlay aktivan, spreči scroll
-        document.body.style.overflowY = "hidden";
-        site.classList.add("site-hidden");
-      }
+   // UVEK prikazi intro (ne pamti)
+document.body.style.overflowY = "hidden";
+site.classList.add("site-hidden");
+
 
       openBtn.addEventListener("click", openIntro);
       skipBtn.addEventListener("click", () => {
