@@ -379,244 +379,505 @@
     .reveal{ opacity:1; transform:none; }
     .reveal.can-animate{ opacity:0; transform: translateY(14px); }
     .reveal.can-animate.show{ opacity:1; transform:none; transition: opacity .8s ease, transform .8s ease; }
+
+    /* ===== INTRO OVERLAY (koverta/pismo) ===== */
+    .site-hidden{ visibility: hidden; }
+    .site-visible{ visibility: visible; }
+
+    .intro-overlay{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(900px 700px at 15% 8%, rgba(143,183,177,.16), transparent 60%),
+        radial-gradient(880px 680px at 85% 14%, rgba(198,144,167,.16), transparent 62%),
+        linear-gradient(180deg, #ffffff, #fafbff);
+    }
+
+    .intro-envelope-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:14px;
+    }
+
+    .intro-skip{
+      border: 0;
+      background: rgba(255,255,255,.72);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor:pointer;
+      font-weight:600;
+      box-shadow: 0 14px 34px rgba(0,0,0,.08);
+    }
+
+    .intro-envelope{
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .intro-shadow{
+      width: 360px;
+      height: 36px;
+      margin: 0 auto -12px auto;
+      filter: blur(10px);
+      background: rgba(0,0,0,.18);
+      border-radius: 50%;
+      opacity: .32;
+    }
+
+    .intro-body{
+      position: relative;
+      width: 360px;
+      height: 240px;
+      transform-style: preserve-3d;
+      transition: transform 200ms ease;
+    }
+    .intro-envelope:hover .intro-body{ transform: translateY(-2px); }
+
+    .intro-back{
+      position:absolute;
+      inset:0;
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(20,20,20,.10);
+      border-radius: 26px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.10);
+      backdrop-filter: blur(14px);
+    }
+
+    .intro-front{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height: 62%;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(20,20,20,.08);
+      border-top: none;
+      border-bottom-left-radius: 26px;
+      border-bottom-right-radius: 26px;
+      clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+    }
+
+    .intro-flap{
+      position:absolute;
+      left:0; right:0; top:0;
+      height: 62%;
+      background: linear-gradient(180deg, rgba(215,196,154,.35), rgba(255,255,255,.70));
+      border: 1px solid rgba(20,20,20,.08);
+      border-bottom: none;
+      border-top-left-radius: 26px;
+      border-top-right-radius: 26px;
+      clip-path: polygon(0 0, 50% 70%, 100% 0, 100% 100%, 0 100%);
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transition: transform 900ms cubic-bezier(.2,.9,.2,1);
+      z-index: 5;
+    }
+
+    .intro-seal{
+      position:absolute;
+      left: 50%;
+      top: 54%;
+      transform: translate(-50%, -50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      display:grid;
+      place-items:center;
+      font-size: 18px;
+      color: white;
+      background: linear-gradient(135deg, rgba(198,144,167,.92), rgba(215,196,154,.88));
+      box-shadow: 0 18px 55px rgba(0,0,0,.10);
+      z-index: 6;
+      transition: opacity 350ms ease, transform 350ms ease;
+    }
+
+    .intro-paper{
+      position:absolute;
+      left: 16px;
+      right: 16px;
+      top: 18px;
+      height: 210px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(20,20,20,.08);
+      border-radius: 22px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.10);
+      transform: translateY(78px);
+      transition: transform 1100ms cubic-bezier(.2,.9,.2,1);
+      z-index: 2;
+      overflow:hidden;
+    }
+
+    .intro-paper-inner{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 16px;
+      color: rgba(20,20,20,.88);
+    }
+
+    .intro-paper-title{
+      font-family: "Cormorant Garamond", serif;
+      font-weight:600;
+      font-size: 28px;
+      letter-spacing:.4px;
+    }
+    .intro-paper-sub{
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+    .intro-paper-names{
+      margin-top: 8px;
+      font-weight: 700;
+      letter-spacing: .22em;
+      opacity: .8;
+    }
+
+    .intro-overlay.opening .intro-flap{ transform: rotateX(160deg); }
+    .intro-overlay.opening .intro-paper{ transform: translateY(-20px); }
+    .intro-overlay.opening .intro-seal{
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.92);
+    }
+
+    .intro-overlay.done{
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 520ms ease;
+    }
+
+    @media (max-width: 420px){
+      .intro-shadow{ width: 300px; }
+      .intro-body{ width: 300px; height: 220px; }
+    }
   </style>
 </head>
 
 <body>
-  <div class="etch"></div>
-  <canvas id="petals"></canvas>
+  <!-- INTRO OVERLAY: KOVERATA -->
+  <div id="introOverlay" class="intro-overlay" aria-hidden="false">
+    <div class="intro-envelope-wrap">
+      <button id="openEnvelope" class="intro-envelope" type="button" aria-label="Otvori pozivnicu">
+        <div class="intro-shadow"></div>
 
-  <div class="wrap">
-    <section class="section" id="top">
-      <div class="container card reveal">
-        <div class="hero">
-          <div class="kicker"><span class="dot"></span> Pozivnica za venčanje</div>
+        <div class="intro-body">
+          <div class="intro-back"></div>
 
-          <h1 class="title">Sa radošću vas pozivamo</h1>
-          <p class="subtitle">
-            Da zajedno obeležimo dan kada se ljubav pretvara u obećanje — uz eleganciju, muziku i najdraže ljude.
-          </p>
-
-          <div class="names">
-            <strong>Ana</strong> <span class="heart">♥</span> <strong>Marko</strong>
+          <div class="intro-paper">
+            <div class="intro-paper-inner">
+              <div class="intro-paper-title">Pozivnica</div>
+              <div class="intro-paper-sub">Klikni da otvoriš</div>
+              <div class="intro-paper-names">A · M</div>
+            </div>
           </div>
 
-          <div class="seal"><div class="mono">A<span>·</span>M</div></div>
-          <div class="rule"></div>
+          <div class="intro-flap"></div>
+          <div class="intro-front"></div>
 
-          <div class="actions">
-            <a class="btn primary" id="rsvpBtn" href="#" target="_blank" rel="noreferrer">✅ RSVP + izbor hrane</a>
-            <a class="btn ghost" href="#detalji">📍 Detalji</a>
-            <a class="btn ghost" href="#program">🕰️ Program</a>
-            <button class="btn ghost" id="copyLink" type="button">🔗 Kopiraj link</button>
-          </div>
-
-          <div class="musicbar">
-            <div class="pill">🎻 Klasična muzika (Bach – “Air”)</div>
-            <button class="smallbtn" id="musicToggle" type="button">▶ Pusti</button>
-            <div class="pill" id="musicStatus">Isključeno</div>
-          </div>
+          <div class="intro-seal">❤</div>
         </div>
+      </button>
 
-        <div class="inner">
-          <div class="grid" id="detalji">
-            <div class="panel reveal">
-              <div class="h3">Detalji događaja</div>
-              <div class="details">
-                <div class="row"><div class="icon">📅</div><div><b>Datum</b><div id="dateText">—</div></div></div>
-                <div class="row"><div class="icon">⏰</div><div><b>Vreme</b><div>17:00 (dolazak gostiju 16:30)</div></div></div>
-                <div class="row"><div class="icon">📍</div><div><b>Mesto</b><div>Svečana sala “Belle”, Ljubljana</div></div></div>
-                <div class="row"><div class="icon">🗺️</div><div><b>Mapa</b><div><a href="https://www.google.com/maps" target="_blank" rel="noreferrer">Otvori Google Maps</a></div></div></div>
-              </div>
-              <div class="note">Dress code: <b>Svečano</b> ✨ (pastel detalji dobrodošli)</div>
-            </div>
-
-            <div class="panel reveal">
-              <div class="h3">Odbrojavanje</div>
-              <div class="note" style="margin-top:0">Do venčanja je ostalo:</div>
-
-              <div class="countdown">
-                <div class="timebox"><div class="num" id="dd">—</div><div class="lab">dana</div></div>
-                <div class="timebox"><div class="num" id="hh">—</div><div class="lab">sati</div></div>
-                <div class="timebox"><div class="num" id="mm">—</div><div class="lab">min</div></div>
-                <div class="timebox"><div class="num" id="ss">—</div><div class="lab">sek</div></div>
-              </div>
-
-              <div class="note">Potvrdi dolazak i izaberi opciju hrane preko dugmeta “RSVP + izbor hrane”.</div>
-
-              <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-                <a class="btn primary" id="rsvpBtn2" href="#" target="_blank" rel="noreferrer">✅ Otvori RSVP</a>
-                <a class="btn ghost" href="#rsvp">📝 Kako radi RSVP?</a>
-              </div>
-            </div>
-          </div>
-
-          <div id="program" class="panel reveal" style="margin-top:16px;">
-            <div class="h3">Program večeri</div>
-            <div class="timeline">
-              <div class="step"><div class="pin"></div><div><b>16:30 — Dolazak gostiju</b><p>Dobrodošlica i piće dobrodošlice.</p></div></div>
-              <div class="step"><div class="pin"></div><div><b>17:00 — Ceremonija</b><p>Svečani trenutak i zajednička fotografija.</p></div></div>
-              <div class="step"><div class="pin"></div><div><b>18:00 — Večera</b><p>Opcije hrane birate u RSVP linku.</p></div></div>
-              <div class="step"><div class="pin"></div><div><b>20:00 — Torta i prvi ples</b><p>Slatki deo večeri + ples do kasno.</p></div></div>
-            </div>
-            <div class="note">(Program je primer — lako menjaš.)</div>
-          </div>
-
-          <div id="rsvp" class="panel reveal" style="margin-top:16px;">
-            <div class="h3">RSVP & izbor hrane</div>
-            <p class="note" style="margin-top:0; max-width: 78ch;">
-              Link vodi na Google Sheet ili Google Form gde gosti upisuju: ime, broj osoba, opciju hrane i alergije.
-            </p>
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn primary" id="rsvpBtn3" href="#" target="_blank" rel="noreferrer">✅ Potvrdi dolazak</a>
-              <a class="btn ghost" href="#top">⬆ Nazad na vrh</a>
-            </div>
-          </div>
-
-          <div class="cards reveal">
-            <div class="icard"><h4 class="ititle">Pokloni</h4><p class="itext">Najveći poklon je vaše prisustvo. Ako ipak želite — diskretna koverta je sasvim u redu.</p></div>
-            <div class="icard"><h4 class="ititle">Deca</h4><p class="itext">Dobrodošla su, ali javite unapred broj mesta i uzrast zbog organizacije.</p></div>
-            <div class="icard"><h4 class="ititle">Kontakt</h4><p class="itext">Za pitanja: +386 xx xxx xxx (zameni brojeve).</p></div>
-          </div>
-
-          <div class="footer">Sa ljubavlju — radujemo se vašem dolasku 🌿</div>
-        </div>
-      </div>
-    </section>
+      <button id="skipIntro" class="intro-skip" type="button">Preskoči</button>
+    </div>
   </div>
 
-  <audio id="bgMusic" preload="none" loop>
-    <source src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Air.ogg" type="audio/ogg">
-  </audio>
+  <!-- SAV POSTOJEĆI SADRŽAJ -->
+  <div id="siteContent" class="site-hidden">
+    <div class="etch"></div>
+    <canvas id="petals"></canvas>
 
-  <script>
-    // ====== PROMENI OVO ZA SVAKOG KLIJENTA ======
-    const EVENT_DATE = new Date("2026-06-20T17:00:00+02:00");
-    const RSVP_URL   = "https://docs.google.com/spreadsheets/d/TVOR_SHEET_ID_HERE/edit#gid=0";
-    // ===========================================
+    <div class="wrap">
+      <section class="section" id="top">
+        <div class="container card reveal">
+          <div class="hero">
+            <div class="kicker"><span class="dot"></span> Pozivnica za venčanje</div>
 
-    ["rsvpBtn","rsvpBtn2","rsvpBtn3"].forEach(id => document.getElementById(id).href = RSVP_URL);
+            <h1 class="title">Sa radošću vas pozivamo</h1>
+            <p class="subtitle">
+              Da zajedno obeležimo dan kada se ljubav pretvara u obećanje — uz eleganciju, muziku i najdraže ljude.
+            </p>
 
-    // date text
-    const dateText = document.getElementById("dateText");
-    try{
-      dateText.textContent = EVENT_DATE.toLocaleDateString("sr-RS", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
-    } catch(e){ dateText.textContent = EVENT_DATE.toDateString(); }
+            <div class="names">
+              <strong>Ana</strong> <span class="heart">♥</span> <strong>Marko</strong>
+            </div>
 
-    // countdown
-    const dd = document.getElementById("dd");
-    const hh = document.getElementById("hh");
-    const mm = document.getElementById("mm");
-    const ss = document.getElementById("ss");
-    const pad = (n) => String(n).padStart(2,"0");
+            <div class="seal"><div class="mono">A<span>·</span>M</div></div>
+            <div class="rule"></div>
 
-    function tick(){
-      const now = new Date();
-      let diff = EVENT_DATE.getTime() - now.getTime();
-      if(diff <= 0){ dd.textContent="0"; hh.textContent="00"; mm.textContent="00"; ss.textContent="00"; return; }
-      const sec = Math.floor(diff/1000);
-      const days = Math.floor(sec/86400);
-      const hours = Math.floor((sec%86400)/3600);
-      const mins = Math.floor((sec%3600)/60);
-      const secs = sec%60;
-      dd.textContent = String(days);
-      hh.textContent = pad(hours);
-      mm.textContent = pad(mins);
-      ss.textContent = pad(secs);
-    }
-    tick(); setInterval(tick, 1000);
+            <div class="actions">
+              <a class="btn primary" id="rsvpBtn" href="#" target="_blank" rel="noreferrer">✅ RSVP + izbor hrane</a>
+              <a class="btn ghost" href="#detalji">📍 Detalji</a>
+              <a class="btn ghost" href="#program">🕰️ Program</a>
+              <button class="btn ghost" id="copyLink" type="button">🔗 Kopiraj link</button>
+            </div>
 
-    // music toggle
-    const music = document.getElementById("bgMusic");
-    const toggle = document.getElementById("musicToggle");
-    const status = document.getElementById("musicStatus");
-    music.volume = 0.30;
-    let playing = false;
+            <div class="musicbar">
+              <div class="pill">🎻 Klasična muzika (Bach – “Air”)</div>
+              <button class="smallbtn" id="musicToggle" type="button">▶ Pusti</button>
+              <div class="pill" id="musicStatus">Isključeno</div>
+            </div>
+          </div>
 
-    toggle.addEventListener("click", async () => {
+          <div class="inner">
+            <div class="grid" id="detalji">
+              <div class="panel reveal">
+                <div class="h3">Detalji događaja</div>
+                
+::contentReference[oaicite:0]{index=0}
+<div class="details">
+                  <div class="row"><div class="icon">📅</div><div><b>Datum</b><div id="dateText">—</div></div></div>
+                  <div class="row"><div class="icon">⏰</div><div><b>Vreme</b><div>17:00 (dolazak gostiju 16:30)</div></div></div>
+                  <div class="row"><div class="icon">📍</div><div><b>Mesto</b><div>Svečana sala “Belle”, Ljubljana</div></div></div>
+                  <div class="row"><div class="icon">🗺️</div><div><b>Mapa</b><div><a href="https://www.google.com/maps" target="_blank" rel="noreferrer">Otvori Google Maps</a></div></div></div>
+                </div>
+                <div class="note">Dress code: <b>Svečano</b> ✨ (pastel detalji dobrodošli)</div>
+              </div>
+
+              <div class="panel reveal">
+                <div class="h3">Odbrojavanje</div>
+                <div class="note" style="margin-top:0">Do venčanja je ostalo:</div>
+
+                <div class="countdown">
+                  <div class="timebox"><div class="num" id="dd">—</div><div class="lab">dana</div></div>
+                  <div class="timebox"><div class="num" id="hh">—</div><div class="lab">sati</div></div>
+                  <div class="timebox"><div class="num" id="mm">—</div><div class="lab">min</div></div>
+                  <div class="timebox"><div class="num" id="ss">—</div><div class="lab">sek</div></div>
+                </div>
+
+                <div class="note">Potvrdi dolazak i izaberi opciju hrane preko dugmeta “RSVP + izbor hrane”.</div>
+
+                <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <a class="btn primary" id="rsvpBtn2" href="#" target="_blank" rel="noreferrer">✅ Otvori RSVP</a>
+                  <a class="btn ghost" href="#rsvp">📝 Kako radi RSVP?</a>
+                </div>
+              </div>
+            </div>
+
+            <div id="program" class="panel reveal" style="margin-top:16px;">
+              <div class="h3">Program večeri</div>
+              <div class="timeline">
+                <div class="step"><div class="pin"></div><div><b>16:30 — Dolazak gostiju</b><p>Dobrodošlica i piće dobrodošlice.</p></div></div>
+                <div class="step"><div class="pin"></div><div><b>17:00 — Ceremonija</b><p>Svečani trenutak i zajednička fotografija.</p></div></div>
+                <div class="step"><div class="pin"></div><div><b>18:00 — Večera</b><p>Opcije hrane birate u RSVP linku.</p></div></div>
+                <div class="step"><div class="pin"></div><div><b>20:00 — Torta i prvi ples</b><p>Slatki deo večeri + ples do kasno.</p></div></div>
+              </div>
+              <div class="note">(Program je primer — lako menjaš.)</div>
+            </div>
+
+            <div id="rsvp" class="panel reveal" style="margin-top:16px;">
+              <div class="h3">RSVP & izbor hrane</div>
+              <p class="note" style="margin-top:0; max-width: 78ch;">
+                Link vodi na Google Sheet ili Google Form gde gosti upisuju: ime, broj osoba, opciju hrane i alergije.
+              </p>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="btn primary" id="rsvpBtn3" href="#" target="_blank" rel="noreferrer">✅ Potvrdi dolazak</a>
+                <a class="btn ghost" href="#top">⬆ Nazad na vrh</a>
+              </div>
+            </div>
+
+            <div class="cards reveal">
+              <div class="icard"><h4 class="ititle">Pokloni</h4><p class="itext">Najveći poklon je vaše prisustvo. Ako ipak želite — diskretna koverta je sasvim u redu.</p></div>
+              <div class="icard"><h4 class="ititle">Deca</h4><p class="itext">Dobrodošla su, ali javite unapred broj mesta i uzrast zbog organizacije.</p></div>
+              <div class="icard"><h4 class="ititle">Kontakt</h4><p class="itext">Za pitanja: +386 xx xxx xxx (zameni brojeve).</p></div>
+            </div>
+
+            <div class="footer">Sa ljubavlju — radujemo se vašem dolasku 🌿</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <audio id="bgMusic" preload="none" loop>
+      <source src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Air.ogg" type="audio/ogg">
+    </audio>
+
+    <script>
+      // ====== PROMENI OVO ZA SVAKOG KLIJENTA ======
+      const EVENT_DATE = new Date("2026-06-20T17:00:00+02:00");
+      const RSVP_URL   = "https://docs.google.com/spreadsheets/d/TVOR_SHEET_ID_HERE/edit#gid=0";
+      // ===========================================
+
+      ["rsvpBtn","rsvpBtn2","rsvpBtn3"].forEach(id => document.getElementById(id).href = RSVP_URL);
+
+      // date text
+      const dateText = document.getElementById("dateText");
       try{
-        if(!playing){ await music.play(); playing=true; toggle.textContent="⏸ Pauziraj"; status.textContent="Uključeno"; }
-        else{ music.pause(); playing=false; toggle.textContent="▶ Pusti"; status.textContent="Isključeno"; }
-      }catch(e){ status.textContent="Browser blokira puštanje"; }
-    });
+        dateText.textContent = EVENT_DATE.toLocaleDateString("sr-RS", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+      } catch(e){ dateText.textContent = EVENT_DATE.toDateString(); }
 
-    // copy link
-    document.getElementById("copyLink").addEventListener("click", async () => {
-      try{ await navigator.clipboard.writeText(window.location.href); alert("Link je kopiran!"); }
-      catch(e){ alert("Ne mogu automatski. Kopiraj ručno iz address bara."); }
-    });
+      // countdown
+      const dd = document.getElementById("dd");
+      const hh = document.getElementById("hh");
+      const mm = document.getElementById("mm");
+      const ss = document.getElementById("ss");
+      const pad = (n) => String(n).padStart(2,"0");
 
-    // reveal
-    const revealEls = document.querySelectorAll(".reveal");
-    if("IntersectionObserver" in window){
-      revealEls.forEach(el => el.classList.add("can-animate"));
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); });
-      }, { threshold: 0.12 });
-      revealEls.forEach(el => io.observe(el));
-      setTimeout(()=> revealEls.forEach(el => el.classList.add("show")), 80);
-    }
-
-    // petals
-    const canvas = document.getElementById("petals");
-    const ctx = canvas.getContext("2d");
-    let W=0, H=0, DPR=1;
-
-    function resize(){
-      DPR = Math.min(2, window.devicePixelRatio || 1);
-      W = canvas.width  = Math.floor(innerWidth * DPR);
-      H = canvas.height = Math.floor(innerHeight * DPR);
-      canvas.style.width  = innerWidth + "px";
-      canvas.style.height = innerHeight + "px";
-    }
-    addEventListener("resize", resize);
-    resize();
-
-    const rand=(a,b)=>Math.random()*(b-a)+a;
-    const palette = [
-      {r:215,g:196,b:154,a:0.38},
-      {r:198,g:144,b:167,a:0.34},
-      {r:143,g:183,b:177,a:0.30}
-    ];
-    const petals = Array.from({length: 18}, () => ({
-      x: rand(0,W), y: rand(-H, 0),
-      s: rand(7, 16)*DPR,
-      vy: rand(0.45, 1.05)*DPR,
-      vx: rand(-0.22, 0.22)*DPR,
-      rot: rand(0, Math.PI*2),
-      vr: rand(-0.012, 0.012),
-      wob: rand(0.002, 0.009),
-      c: palette[Math.floor(rand(0,palette.length))]
-    }));
-
-    function drawPetal(p){
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      ctx.beginPath();
-      ctx.moveTo(0, -p.s*0.95);
-      ctx.quadraticCurveTo(p.s*0.72, -p.s*0.22, 0, p.s);
-      ctx.quadraticCurveTo(-p.s*0.72, -p.s*0.22, 0, -p.s*0.95);
-      ctx.closePath();
-      ctx.fillStyle = `rgba(${p.c.r},${p.c.g},${p.c.b},${p.c.a})`;
-      ctx.fill();
-      ctx.restore();
-    }
-
-    function anim(){
-      ctx.clearRect(0,0,W,H);
-      for(const p of petals){
-        p.y += p.vy;
-        p.x += p.vx + Math.sin(p.y * p.wob) * 0.85*DPR;
-        p.rot += p.vr;
-        drawPetal(p);
-        if(p.y > H + 30*DPR){ p.y = rand(-120*DPR, -20*DPR); p.x = rand(0,W); }
-        if(p.x < -40*DPR) p.x = W + 40*DPR;
-        if(p.x > W + 40*DPR) p.x = -40*DPR;
+      function tick(){
+        const now = new Date();
+        let diff = EVENT_DATE.getTime() - now.getTime();
+        if(diff <= 0){ dd.textContent="0"; hh.textContent="00"; mm.textContent="00"; ss.textContent="00"; return; }
+        const sec = Math.floor(diff/1000);
+        const days = Math.floor(sec/86400);
+        const hours = Math.floor((sec%86400)/3600);
+        const mins = Math.floor((sec%3600)/60);
+        const secs = sec%60;
+        dd.textContent = String(days);
+        hh.textContent = pad(hours);
+        mm.textContent = pad(mins);
+        ss.textContent = pad(secs);
       }
-      requestAnimationFrame(anim);
-    }
-    anim();
-  </script>
+      tick(); setInterval(tick, 1000);
+
+      // music toggle
+      const music = document.getElementById("bgMusic");
+      const toggle = document.getElementById("musicToggle");
+      const status = document.getElementById("musicStatus");
+      music.volume = 0.30;
+      let playing = false;
+
+      toggle.addEventListener("click", async () => {
+        try{
+          if(!playing){ await music.play(); playing=true; toggle.textContent="⏸ Pauziraj"; status.textContent="Uključeno"; }
+          else{ music.pause(); playing=false; toggle.textContent="▶ Pusti"; status.textContent="Isključeno"; }
+        }catch(e){ status.textContent="Browser blokira puštanje"; }
+      });
+
+      // copy link
+      document.getElementById("copyLink").addEventListener("click", async () => {
+        try{ await navigator.clipboard.writeText(window.location.href); alert("Link je kopiran!"); }
+        catch(e){ alert("Ne mogu automatski. Kopiraj ručno iz address bara."); }
+      });
+
+      // reveal
+      const revealEls = document.querySelectorAll(".reveal");
+      if("IntersectionObserver" in window){
+        revealEls.forEach(el => el.classList.add("can-animate"));
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("show"); });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => io.observe(el));
+        setTimeout(()=> revealEls.forEach(el => el.classList.add("show")), 80);
+      }
+
+      // petals
+      const canvas = document.getElementById("petals");
+      const ctx = canvas.getContext("2d");
+      let W=0, H=0, DPR=1;
+
+      function resize(){
+        DPR = Math.min(2, window.devicePixelRatio || 1);
+        W = canvas.width  = Math.floor(innerWidth * DPR);
+        H = canvas.height = Math.floor(innerHeight * DPR);
+        canvas.style.width  = innerWidth + "px";
+        canvas.style.height = innerHeight + "px";
+      }
+      addEventListener("resize", resize);
+      resize();
+
+      const rand=(a,b)=>Math.random()*(b-a)+a;
+      const palette = [
+        {r:215,g:196,b:154,a:0.38},
+        {r:198,g:144,b:167,a:0.34},
+        {r:143,g:183,b:177,a:0.30}
+      ];
+      const petals = Array.from({length: 18}, () => ({
+        x: rand(0,W), y: rand(-H, 0),
+        s: rand(7, 16)*DPR,
+        vy: rand(0.45, 1.05)*DPR,
+        vx: rand(-0.22, 0.22)*DPR,
+        rot: rand(0, Math.PI*2),
+        vr: rand(-0.012, 0.012),
+        wob: rand(0.002, 0.009),
+        c: palette[Math.floor(rand(0,palette.length))]
+      }));
+
+      function drawPetal(p){
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.beginPath();
+        ctx.moveTo(0, -p.s*0.95);
+        ctx.quadraticCurveTo(p.s*0.72, -p.s*0.22, 0, p.s);
+        ctx.quadraticCurveTo(-p.s*0.72, -p.s*0.22, 0, -p.s*0.95);
+        ctx.closePath();
+        ctx.fillStyle = `rgba(${p.c.r},${p.c.g},${p.c.b},${p.c.a})`;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      function anim(){
+        ctx.clearRect(0,0,W,H);
+        for(const p of petals){
+          p.y += p.vy;
+          p.x += p.vx + Math.sin(p.y * p.wob) * 0.85*DPR;
+          p.rot += p.vr;
+          drawPetal(p);
+          if(p.y > H + 30*DPR){ p.y = rand(-120*DPR, -20*DPR); p.x = rand(0,W); }
+          if(p.x < -40*DPR) p.x = W + 40*DPR;
+          if(p.x > W + 40*DPR) p.x = -40*DPR;
+        }
+        requestAnimationFrame(anim);
+      }
+      anim();
+      // ===== INTRO OVERLAY LOGIC =====
+      const overlay = document.getElementById("introOverlay");
+      const site    = document.getElementById("siteContent");
+      const openBtn = document.getElementById("openEnvelope");
+      const skipBtn = document.getElementById("skipIntro");
+
+      function finishIntro(){
+        overlay.classList.add("done");
+        overlay.setAttribute("aria-hidden","true");
+        site.classList.remove("site-hidden");
+        site.classList.add("site-visible");
+        document.body.style.overflowY = "auto";
+      }
+
+      function openIntro(){
+        overlay.classList.add("opening");
+        // trajanje animacije poklopca + papira
+        setTimeout(() => finishIntro(), 1150);
+        try{ localStorage.setItem("wedding_intro_seen","1"); } catch(e){}
+      }
+
+      // Ako želiš da se intro prikazuje samo prvi put:
+      let seen = false;
+      try{ seen = localStorage.getItem("wedding_intro_seen") === "1"; } catch(e){}
+
+      if(seen){
+        finishIntro();
+      }else{
+        // dok je overlay aktivan, spreči scroll
+        document.body.style.overflowY = "hidden";
+        site.classList.add("site-hidden");
+      }
+
+      openBtn.addEventListener("click", openIntro);
+      skipBtn.addEventListener("click", () => {
+        try{ localStorage.setItem("wedding_intro_seen","1"); } catch(e){}
+        finishIntro();
+      });
+
+      // Escape = skip
+      window.addEventListener("keydown", (e) => {
+        if(e.key === "Escape" && !overlay.classList.contains("done")){
+          try{ localStorage.setItem("wedding_intro_seen","1"); } catch(e){}
+          finishIntro();
+        }
+      });
+    </script>
+  </div>
 </body>
 </html>
